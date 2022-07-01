@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8"/>
+    <title>Caixa Eletronico - Entrei</title>
+</head>
+<body>
+<h2>Consultar saldo / realizar saque / realizar deposito</h2>
+
+<div class = "container">
+    <div th:if="${saldo_valor}">
+        <h5 th:text="${'Saldo disponível: ' + saldo_valor}"/>
+        <form method="get" th:action="@{/saldo}">
+            <button class="btn btn-primary btn-block">Atualizar</button>
+        </form>
+    </div>
+    <div th:unless="${saldo_valor}">
+        <form method="get" th:action="@{/saldo}">
+            <button class="btn btn-primary btn-block">Consultar</button>
+        </form>
+    </div>
+</div>
+
+<div class = "container">
+    <h3>Sacar dinheiro</h3>
+    <p>Digite a quantidade desejada: </p>
+    <form method="post" action="/saldo/sacar">
+        <input type="text" th:value="${saque}" name="saque" class="form-control" required/>
+        <button class="btn btn-primary btn-block">Sacar</button>
+    </form>
+    <div style="color: red" th:if="${erro_saque}">
+        <p th:text="${erro_saque}"/>
+    </div>
+</div>
+
+<div class = "container">
+    <h3>Depositar dinheiro</h3>
+    <p>Digite a quantidade desejada: </p>
+    <form method="post" action="/saldo/depositar">
+        <input type="text" th:value="${deposito}" name="deposito" class="form-control" required/>
+        <button class="btn btn-primary btn-block">Depositar</button>
+    </form>
+    <div style="color: red" th:if="${erro_deposito}">
+        <p th:text="${erro_deposito}"/>
+    </div>
+</div>
+
+
+</body>
+</html>
